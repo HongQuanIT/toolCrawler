@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tool harrods</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="/lib/fontawesome-free-5.11.1-web/css/all.css">
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/fontawesome-free-5.11.1-web/js/all.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="form-login">
+            <div class="container">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 style="color:white;">Sign In to Tool Harrods 1.0</h3>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input type="text" name="username" class="form-control" placeholder="username">
+                                    
+                                </div>
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <input type="password" name="password" class="form-control" placeholder="password">
+                                </div>
+                                <div class="form-group">
+                                    <span class="btn float-right login_btn" onclick="login();" style="cursor: pointer;">Login</span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center">
+                                <a href="#">Forgot your password?</a>
+                            </div>
+                        </div>
+                        <p style="display: block;text-align:center;color:white;">
+                            <div class="loading-l">
+                                    <i style="color: white;" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                                    <span style="color: white;" class="sr-only-q"></span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="logined">
+        <h2 style="text-align: center;">Harrods Tool 1.0</h2>
+        <div id="myHeader" class="scrollmenu">
+            <span class="btn_women" onclick="Get_women();">Women</span>
+            <span class="btn_women" onclick="Get_man();">Men</span>
+            <span class="btn_women" onclick="Accessories();">Accessories</span>
+            <span class="btn_women" onclick="Beauty();">Beauty</span>
+            <span class="btn_women" onclick="Children();">Children</span>
+            <span class="btn_women" onclick="Shoes();">Shoes</span>
+        </div>
+        <div class="pagination-q">
+            <div class="container">
+                <div class="row" style="margin:0;">
+                    <div class="col-md-2 pagination-page page-link" style="height: 40px;">
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="pagination pagination1">
+                        </ul>
+                    </div>
+                    <div class="col-md-2 check-all">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="loading-q">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    <span class="sr-only-q">Loading...</span>
+            </div>
+            <div id="result" style="padding-bottom: 60px;"></div>
+        </div>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                        <div class="col-6">
+                            <div class="setting-q">
+                                    <span id="setting_id" data-toggle="modal" data-target="#myModal"><i class="fa fa-cog fa-fw" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="upload-all">
+                                    <span id="upload_all_id" onclick="Upload_all();"><i class="fa fa-upload"></i></span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/main.js"></script>
+        <script>
+            window.onscroll = function() {myFunction()};
+            
+            var header = document.getElementById("myHeader");
+            var sticky = header.offsetTop;
+            
+            function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+            }
+        </script>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+            
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color: #4863b0;font-family: initial;font-style: normal;"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>Setting</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Tỉ giá :</label>
+                                <div style="display: inline-block;color: #0755a4;font-weight: 600;">1 &pound; : <input type="number" name="currency" step="0.1" min="0" style="border-radius: 14px;padding-left: 10px;padding-right: 10px;font-style: oblique;font-weight: 600;color: #336795;" value="30000.00"> VND</div>
+                            </div>
+                            <div class="col-md-6">
+                                    <label>Giảm giá :</label>
+                                    <div style="display: inline-block;color: #0755a4;font-weight: 600;"> <input type="number" name="discount" step="0.5" min="0" style="border-radius: 14px;padding-left: 10px;padding-right: 10px;font-style: oblique;font-weight: 600;color: #336795;" value="0"> %</div>
+                            </div>
+                                <div class="col-md-12">
+                                    <label>Trạng thái :</label>
+                                    <span>
+                                        <input type="radio" id="public_1" name="radio-group" value="1" checked>
+                                        <label for="public_1">Public</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="public_2" name="radio-group" value="2">
+                                        <label for="public_2">No Public</label>
+                                    </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Danh mục :</label>
+                                    <select style="border-radius: 14px;padding-left: 10px;padding-right: 10px;font-style: oblique;font-weight: 600;color: #336795;" id="select-category"> 
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Thương hiệu :</label>
+                                    <select style="border-radius: 14px;padding-left: 10px;padding-right: 10px;font-style: oblique;font-weight: 600;color: #336795;" id="select-brand">
+                                    </select>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="border: 1px solid;">Close</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- End Modal -->
+    <!-- Modal process -->
+    <div class="modal fade" id="loadMe" role="dialog" aria-labelledby="loadMeLabel">
+        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Đang tiến hành upload sản phẩm.Vui lòng chờ!... <br><br><small>Không thêm các action khác... #love</small></p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="modal-dialog modal-lg" role="document">
+            <div style="width: 400px; margin: 50px auto">
+                <div class="progress progress-striped hide">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="max-width: 20%">
+                  <span class="title"><span class="__item">0</span>/<span class="__tong">0</span></span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal process -->
+
+    <!-- modal -->
+    <div id="Modalpagination"
+    class="modal animated bounceIn"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- dialog -->
+    <div class="modal-dialog pagination-dialog">
+
+    <!-- content -->
+    <div class="modal-content pagination-modal-content">
+
+        <!-- header -->
+        <div class="modal-header pagination-modal-header">
+            <h1 id="myModalLabel"
+                class="modal-title pagination-modal-title">
+                Chọn Trang
+            </h1>
+        </div>
+        <!-- header -->
+        <!-- body -->
+        <div class="modal-body pagination-modal-body">
+            <div id="pagination_q" class="pagination">
+
+            </div>
+        </div>
+        <!-- body -->
+        <!-- footer -->
+        <div class="modal-footer pagination-modal-footer">
+            <button class="btn btn-secondary"
+                    data-dismiss="modal">
+                close
+            </button>
+        </div>
+        <!-- footer -->
+
+    </div>
+    <!-- content -->
+
+    </div>
+    <!-- dialog -->
+
+    </div>
+    <!-- modal -->
+</body>
+</html>
